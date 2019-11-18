@@ -41,7 +41,8 @@ Part.2.C.why-start-from-writing-functions
 6 变量的作用域
 6.1 程序执行过程中，变量有全局变量（Global Variables）和局域变量（Local Variables）之分。
 	全局变量：函数外的变量；局域变量：某函数内部所有的变量
-	a.每次某个函数被调用，这个函数内部所有的变量，都是局域变量。即便那个函数内部某个变量的名称与它外部的某个全局变量名称相同，它们也不是同一个变量，只是名称相同而已。
+	a.每次某个函数被调用，这个函数内部所有的变量，都是局域变量。
+	  即便那个函数内部某个变量的名称与它外部的某个全局变量名称相同，它们也不是同一个变量，只是名称相同而已。
 	b.更为重要的是，当外部调用一个函数的时候，准确地讲，传递的不是变量，而是那个变量的值。
 6.2 函数内部处理被传递进来的值是可变容器（比如列表）的时候，值会全局变化，那么在函数内部对其操作之前，先创建一个它的拷贝。
 
@@ -92,8 +93,85 @@ Part.2.C.why-start-from-writing-functions
 		eg:a_list = [1, 3, 5], b_list = [2, 4, 6]
 		   list(map(lambda x, y: x * y, a_list, b_list))
 
-# Part.2.D.4-recursion.ipynb
-
-
+# Part.2.D.4-recursion.ipynb 递归
+1 递归函数（Recursive Functions）—— 那些在自身内部调用自身的函数
+1.1 递归函数的执行过程
+	eg:f(x)=x*f(x-1) x>1
+1.2 递归的终点
+	正常的递归函数一定有个退出条件
+	死循环：无限循环的递归，函数里没有设置“中止自我调用”的条件，运行会报错
+	补：Python 中，若是需要将某个值与 True 或者 False 进行比较，尤其是在条件语句中，推荐写法是：
+	if condition: 等同于if condition is True:或者if condition == True:
+1.3 递归函数的共同特征
+	a.在return语句中返回的是自身的调用（或者是含有自身的表达式）
+	b.为了避免死循环，一定要有至少一个条件下返回的不再是自身调用
+1.4 变量的作用域
+	a.根据作用域分为两种：全局变量（Global Variables）和局部变量（Local Variables）
+	在函数内部被赋值而后使用的，都是局部变量，它们的作用域是局部，无法被函数外的代码调用；
+	在所有函数之外被赋值而后开始使用的，是全局变量，它们的作用域是全局，在函数内外都可以被调用。
+	b.原则：在函数内部绝对不调用全局变量。即便是必须改变全局变量，也只能通过函数的返回值在函数外改变全局变量。
+1.5 递归函数三原则
+	a.根据定义，递归函数必须在内部调用自己；
+	b.必须设定一个退出条件；
+	c.递归过程中必须能够逐步达到退出条件
 
 # Part.2.D.5-docstrings.ipynb
+1 函数的文档(Docstring)
+	在函数定义内部，我们可以加上 Docstring；
+	可以通过 help() 这个内建函数，或者 .__doc__ 这个 Method 去查看这个 Docstring，即该函数的 “产品说明书”
+	a.Docstring 可以是多行字符串，也可以是单行字符串：
+	b.Docstring 若存在，必须在函数定义的内部语句块的开头，也必须与其它语句一样保持相应的缩进（Indention）
+	  Docstring 放在其它地方不起作用，查看时结果为None
+1.1 书写 Docstring 的规范(https://www.python.org/dev/peps/pep-0257/)
+	a.无论是单行还是多行的 Docstring，一概使用三个双引号扩起；
+	b.在 Docstring 内部，文字开始之前，以及文字结束之后，都不要有空行；
+	c.多行 Docstring，第一行是概要，随后空一行，再写其它部分；
+	d.完善的 Docstring，应该概括清楚以下内容：参数、返回值、可能触发的错误类型、可能的副作用，以及函数的使用限制等等；
+	e.每个参数的说明都使用单独的一行
+1.2 Sphinx 版本的 Docstring 规范
+	Sphinx 可以从 .py 文件里提取所有 Docstring，而后生成完整的 Documentation。
+	它自己的一种标记语言，reStructureText，文件尾缀使用 .rst
+
+# Part.2.D.6-modules.ipynb
+1 保存到文件的函数
+	保存起来，方便随时调用
+1.1 模块（Module）
+	a.定义：任何一个 A.py 文件都可以被称为模块，可以被外部调用
+	b.用法：
+	import A.py #引入模块
+	A.__name__ # A模块的名称，即文件名A
+	A.function_b() #引用模块中的方法
+1.2 模块文件系统目录检索顺序
+	import A.py # 先去看看内建模块里有没有指定的名称；如果没有，就按照 sys.path 所返回的目录列表顺序去找
+	sys.path 所返回的目录列表中，当前的工作目录排在第一位
+	指定检索目录，可以用 sys.path.append() 添加一个搜索位置
+1.3 系统内建的模块
+	import sys
+	sys.builtin_module_names # 获取系统内建模块的列表
+	"_sre" in sys.builtin_module_names # True
+	注：跟变量名、函数名，不能与关键字重名一样，模块名称不能与系统内建模块名称重合
+1.4 引入指定模块中的特定函数
+	eg1:
+	from mycode import is_prime
+	is_prime(3) # 直接调用方法，不需要写成mycode.is_prime
+	如果当前目录中并没有 mycode.py 这个文件，那mycode 会被当作目录名再被尝试一次。
+	如果当前目录内，有个叫做 mycode 的目录（或称文件夹）且该目录下同时要存在一个 __init__.py 文件
+	（通常为空文件，用于标识本目录形成一个包含多个模块的 包（packages），它们处在一个独立的 命名空间（namespace））
+	eg2:
+	from mycode import * # 把 mycode 这个文件夹中的所有 .py 文件全部导入
+	eg3:导入 foo 这个目录中的 bar.py 这个模块文件
+	import foo.bar 或者 from foo import bar
+1.5 引入并使用化名（alias）——为了避免混淆，或为了避免输入太多字符
+	from mycode import is_prime as isp
+	import mycode as m
+1.6 模块中不一定只有函数
+	一个模块文件中，不一定只包含函数；它也可以包含函数之外的可执行代码
+	注：在 import 语句执行的时候，模块中的非函数部分的可执行代码，只执行一次
+1.7 dir() 函数
+	用 dir() 函数查看模块中可触达的变量名称和函数名称
+
+# Part.2.D.7-tdd.ipynb
+
+
+# Part.2.D.8-main.ipynb
+
