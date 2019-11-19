@@ -171,7 +171,57 @@ Part.2.C.why-start-from-writing-functions
 	用 dir() 函数查看模块中可触达的变量名称和函数名称
 
 # Part.2.D.7-tdd.ipynb
-
+1 测试驱动的开发
+	实现一个算法：写一个函数，或者写一个程序，换一种说法
+	算法：解决问题的步骤
+1.1 以测试为驱动的开发（Test Driven Development）：
+	 “通过先想办法验证结果而后从结果倒推” 的开发方式，是一种很有效的方法论
+1.2  “试错语句”
+	当一个程序开始执行的时候，有两种错误可能会导致程序执行失败：
+	a.语法错误（Syntax Errors）：程序无法启动执行，解析器会直接提醒。只要没有语法错误，程序就可以启动。
+	b.意外（Exceptions）：程序已经执行之后才发生的（Runtime Errors）
+1.3 try 语句
+	a.可以去执行那些可能出现 “意外” 的语句，也可以配合 except、else、finally 使用。
+	b.try 语句块也是一种特殊的流程控制，专注于 “当意外发生时应该怎么办？”
+	c.用法
+try:
+    f = open('test_file.txt', 'r')
+except FileNotFoundError as fnf_error: 
+    print(fnf_error)
+#当程序中的语句 f = open('test_file.txt', 'r') 因为 test_file.txt 不存在而引发意外之时，except 语句块会接管流程；
+#而后又因为在except 语句块中指定了FileNotFoundError，所以若FileNotFoundError发生，那except 语句块中的代码，即print(fnf_error) 会被执行
+1.4 总结
+	a.注释、函数的文档(Docstring)；
+	b.写测试-保证结果全面正确
+	c.最初写程序时，就考虑到意外，使用试错语句块
+1.5 待看
+	https://docs.python.org/3/library/doctest.html
+	https://docs.python.org/3/library/unittest.html
 
 # Part.2.D.8-main.ipynb
+1 可执行的 Python 文件
+	可以把任何一个程序，无论大小，都封装（或者囊括）到仅仅一个函数之中。按照惯例（Convention），这个函数的名称叫做main()
+1.1 
+a.当一个模块（即存有Python代码的 .py 文件，例如：mycode.py）被 import 语句导入的时候，这个模块的 __name__ 就是模块名（例如：'mycode'）。
+b.而当一个模块被命令行运行的时候，这个模块的 __name__ 就被 Python 解释器设定为 '__main__'。
+c.举例：把一个程序整个封装到 main() 之中，而后在模块代码里加上：
+if __name__ == '__main__':
+    main()
+这么做的结果是：
+当 Python 文件被当作模块，被 import 语句导入时，if 判断失败，main() 函数不被执行；仅执行1次非函数部分的可执行代码；
+	可以调用执行:
+	import A 
+	A.main()
+当 Python 文件被 python -m 运行的时候，if 判断成功，main() 函数才被执行。
+d.补充：命令行中执行某个模块：python A.py 或者 python -m A。
 
+# Part.2.E.deliberate-thinking
+1 刻意思考
+刻意思考哪儿需要刻意练习
+a.这东西能用在哪儿呢？
+b.这东西还能用在哪儿呢？
+凡事都可以分为：
+	Must have
+	Should have
+	Could have
+	Won't have
