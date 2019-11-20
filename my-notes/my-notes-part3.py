@@ -38,11 +38,53 @@ Part.3.B.1.classes-1.ipynb
 	而后你根据这个类的定义，创建了很多实例（Instances）；
 	接下来一旦你开始使用这些实例的时候，你就成了使用者，从使用者角度望过去，手里正在操作的，就是各种对象（Objects）
 
-Part.3.B.2.classes-2.ipynb
+# Part.3.B.2.classes-2.ipynb
 1 类 —— Python 的实现
 1.1 Defining Class
-	定义：Class 使用 class 关键字
-	注：与函数定义不同的地方在于，Class 接收参数不是在 class Classname(): 的括号里完成
+	定义：Class 使用 class 关键字，如"class A："
+	注：与函数定义不同的地方在于，Class 接收参数不是在 class Classname(): 的括号里完成；继承新class如："class A_i(A):"
+1.2 初始函数、系统默认变量；继承（Inherite）
+举例：
+import datetime
+class Golem:   # Golem:一个被赋予了生命的泥人
+    def __init__(self, name=None): #初始化函数“__init__()”名称是强制指定的，Class的代码中，系统会在Instance创建后初始化这个函数
+			# self是个变量，区别于程序中其它变量，它是系统默认可以识别的变量，指代将来用这个 Class 创建的 Instance。
+        self.name = name # d.self.name 接收了一个参数，'Clay'，并将其保存了下来；
+        self.built_year = datetime.date.today().year # e.生成了一个self.built_year 的变量，保存的是g这个 Object 被创建时的年份
+    
+    def say_hi(self):
+        print('Hi!')
+class Running_Golem(Golem): # 用Golem Class去Inherite一个新的Subclass，比如Running_Golem，有Golem的Attributes和Methods。
+    def run(self):
+    	print("Can't you see? I'm running...")
+    def say_hi(self):                            # 不再使用 Parent Class 中的定义，而是新的……
+        print('Hey! Nice day, Huh?') # 重写（Overrides）在Parent Class 中的 Methods
+        
+g = Golem('Clay') # a.创建了Golem这个Class的一个Instance，即为g，对使用者来说，就是个Object；
+	# b.因为Golem这个Class中有 __init__()，所以当 g 被创建的时候，g就被初始化
+	# c.在 g 所在的变量目录中，出现了一个叫做 self 的用来指代 g 本身的变量；
+g.name 
+g.built_year 
+g.say_hi
+g.say_hi()
+type(g)
+type(g.name)
+type(g.built_year)
+type(g.__init__)
+type(g.say_hi)
+1.3 重写（Overrides）
+	创建一个 Inherited Class时，可以重写（Overriding）Parent Class 中的 Methods。
+1.4 Inspecting A Class
+	作为用户了解一个Class的Interface，即它的属性Attributes和方法Methods时，常用的有三种方式：
+	(1) help(object) #
+	(2) dir(object)
+	(3) object.__dict__
+1.5 变量的作用域(Scope)
+(1)三个 Python 的内建函数：
+hasattr(object, attr) 查询这个 object 中有没有这个 attr，返回布尔值
+getattr(object, attr) 获取这个 object 中这个 attr 的值
+setattr(object, attr, value) 将这个 object 中的 attr 值设置为 value
+(2)
 
 
 Part.3.B.3.decorator-iterator-generator.ipynb
