@@ -13,7 +13,7 @@ Part.3.A.conquering-difficulties
 1.3 耐心学习
 首先，平静地接受了它枯燥的本质；其次，就是经过多次实践已然明白，无论多枯燥，总能读完；无论多难，多读几遍总能读懂
 
-Part.3.B.1.classes-1.ipynb
+Part.3.B.1.classes-1
 1 类 —— 面向对象编程
 1.1 面向对象编程
 	a.本节内容，不专属于哪个编程语言（比如 Python、JavaScript 或者 Golang）。
@@ -38,7 +38,7 @@ Part.3.B.1.classes-1.ipynb
 	而后你根据这个类的定义，创建了很多实例（Instances）；
 	接下来一旦你开始使用这些实例的时候，你就成了使用者，从使用者角度望过去，手里正在操作的，就是各种对象（Objects）
 
-# Part.3.B.2.classes-2.ipynb
+# Part.3.B.2.classes-2
 1 类 —— Python 的实现
 1.1 Defining Class
 	定义：Class 使用 class 关键字，如"class A："
@@ -99,7 +99,7 @@ setattr(object, attr, value) 将这个 object 中的 attr 值设置为 value
 	0、空字符串和false归为一类，称为“假值”；把null和undefined归为一类，称为“空值”。
 	假值还算一个有效的对象，因此可以对其使用toString等类型相关的方法，而空值则将会抛出异常：xxx hash no properties。
 	
-Part.3.B.3.decorator-iterator-generator.ipynb
+# Part.3.B.3.decorator-iterator-generator
 1 函数工具
 	装饰器、迭代器和生成器，这些都是函数工具。有人把它们称为 DIG（Decorator，Iterator，Generator）
 		—— 它们都是真正掌握 Python 的关键。
@@ -187,26 +187,41 @@ def a_decorator(func):
 # (*args, **kwargs) 非常强大，它可以匹配所有函数传进来的所有参数；
 # 准确地讲，*args接收并处理所有传递进来的位置参数，**kwargs 接收并处理所有传递进来的关键字参数。
 
-Part.3.B.4.regex.ipynb
+# Part.3.B.4.regex
+1 正则表达式
+正则表达式(Regular Expression):常简写为regex、regexp或RE，又称正规表示式、正规表示法、正规运算式、规则运算式、常规表示法。
+	正则表达式使用单个字符串来描述、匹配一系列符合某个句法规则的字符串。
+	在很多文本编辑器里，正则表达式通常被用来检索、替换那些符合某个模式的文本。许多程序设计语言都支持利用正则表达式进行字符串操作。
+一个正则表达式（Regular Expression）通常被称为一个模式（Pattern）
+我们可以用书写特定的规则，用来在文本中捕获与规则一致的字符串，而后对其进行操作
+1.1 总结
+（1）规则表达式（Regular Expressions，通常缩写为 Regex）是最强大且不可或缺的文本处理工具————
+	它的用处就是在文本中扫描/搜索（Scan/Search）与某一规则（Pattern）匹配（Match，即，与规则一致）的所有实例，
+	并且还可以按照规则捕获（Capture）其中的部分或者全部，对它们进行替换（Replace）。
+（2）用处
+a.替换Replace
+b.检查格式：用Regex检查用户输入的密码是否过于简单（如：全部都由数字构成），用来验证用户输入的电话号码、证件号码是否符合特定格式等等。
+
+ps:
+	re.findall(pttn, str) 的意思是说，把 str中所有与 pttn 这个规则一致的字符串都找出来
+
+Part.3.B.5.bnf-ebnf-pebnf
 
 
-Part.3.B.5.bnf-ebnf-pebnf.ipynb
+Part.3.C.breaking-good-and-bad
 
 
-Part.3.C.breaking-good-and-bad.ipynb
+Part.3.D.indispensable-illusion
 
 
-Part.3.D.indispensable-illusion.ipynb
+Part.3.E.to-be-thorough
 
 
-Part.3.E.to-be-thorough.ipynb
+Part.3.F.social-selfteaching
 
 
-Part.3.F.social-selfteaching.ipynb
+Part.3.G.the-golden-age-and-google
 
 
-Part.3.G.the-golden-age-and-google.ipynb
-
-
-Part.3.H.prevent-focus-drifting.ipynb
+Part.3.H.prevent-focus-drifting
 
