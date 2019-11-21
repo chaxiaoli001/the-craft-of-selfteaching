@@ -76,17 +76,25 @@ type(g.say_hi)
 	创建一个 Inherited Class时，可以重写（Overriding）Parent Class 中的 Methods。
 1.4 Inspecting A Class
 	作为用户了解一个Class的Interface，即它的属性Attributes和方法Methods时，常用的有三种方式：
-	(1) help(object) #
+	(1) help(object) #待查
 	(2) dir(object)
 	(3) object.__dict__
 1.5 变量的作用域(Scope)
+	每个变量都属于某一个 Scope（变量的作用域），在同一个 Scope 中，变量可以被引用被操作
 (1)三个 Python 的内建函数：
 hasattr(object, attr) 查询这个 object 中有没有这个 attr，返回布尔值
 getattr(object, attr) 获取这个 object 中这个 attr 的值
 setattr(object, attr, value) 将这个 object 中的 attr 值设置为 value
-(2)
-
-
+(2) 私有变量（Private Variables）:Python中，变量名前面加上一个以上下划线（Underscore）_ 。不能被外部引用
+	按照Python惯例，会使用两个下划线起始，去命名私有变量，如：__life_span，使其成为私有变量，外部不能触达（不能引用 Golem.__life_span）
+1.6 Encapsulation
+	在 def population(self): 之前的一行加上一句 @property，则：
+	a.外部能够像获得Class的属性那样，直接写 g.population，而不是必须加上括号g.population()传递参数（实际上传递了一个隐含的self参数）
+	b.可以直接引用 g.population，但在外部不能再直接给 g.population 赋值了，否则会报错
+	若希望从外部可以设置这个值，那就得再写个函数，并且在函数之前加上一句@population.setter
+	a..population 这个 Attribute 就可以从外部被设定其值了
+1.7 本节没看太懂
+	
 Part.3.B.3.decorator-iterator-generator.ipynb
 
 
