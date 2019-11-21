@@ -94,9 +94,98 @@ setattr(object, attr, value) 将这个 object 中的 attr 值设置为 value
 	若希望从外部可以设置这个值，那就得再写个函数，并且在函数之前加上一句@population.setter
 	a..population 这个 Attribute 就可以从外部被设定其值了
 1.7 本节没看太懂
+补充——字符串和布尔值转换：
+	false、0、空字符串、null、undefined被划分为两类：假值、空值。
+	0、空字符串和false归为一类，称为“假值”；把null和undefined归为一类，称为“空值”。
+	假值还算一个有效的对象，因此可以对其使用toString等类型相关的方法，而空值则将会抛出异常：xxx hash no properties。
 	
 Part.3.B.3.decorator-iterator-generator.ipynb
+1 函数工具
+	装饰器、迭代器和生成器，这些都是函数工具。有人把它们称为 DIG（Decorator，Iterator，Generator）
+		—— 它们都是真正掌握 Python 的关键。
+2 迭代器（Iterator）
+	Python 中的所有容器，都是可迭代的 —— 即可以通过迭代遍历每一个元素
+2.1 内建函数iter()
+	把一个 “可迭代对象”（Iterable）转换成 “迭代器”（Iterator）
+	如：i = iter("Python")
+	    type(i) # str_iterator
+	    next(i) # "P"，调到最后一个元素，再调用就会有 StopIteration 错误提示。
+2.2 迭代器函数
+	迭代器是个 Object，所以写迭代器的时候写的是 Class，比如，我们写一个数数的迭代器，Counter：
+class Counter(object):
+    def __init__(self, start, stop):
+        self.current = start
+        self.stop = stop
+    def __iter__(self): # 关键(1)这两句是约定俗成的写法，有它们Counter 这个类就被会被识别为 Iterator 类型
+        return self     
+    def __next__(self): # 关键(2)加上这个，整个class就是个完整的迭代器
+        if self.current > self.stop:
+            raise StopIteration
+        else:
+            c = self.current
+            self.current += 1
+        return c
 
+for c in Counter(101, 103):
+    print(c, sep=', ') # 可以用for loop或者while loop去遍历所有元素
+3 生成器（Generator）
+3.1 生成器函数
+	用函数（而不是 Class）写一个Counter ，用生成器（Generator）
+def counter(start, stop):
+    while start <= stop:
+        yield start # yield语句不同于return，在它之后的语句依然会被执行，而return之后的语句就被忽略了
+        start += 1
+	
+for i in counter(101, 105):
+    print(i)
+# 生成器函数被 next() 调用后，执行到 yield 生成一个值返回（然后继续执行 next() 外部剩余的语句）；
+# 下次再被 next() 调用的时候，从上次生成返回值的 yield 语句处继续执行
+3.2 生成器表达式
+举例如：even = (e for e in range(10) if not e % 2)
+	# 圆括号（），even就是用生成器创造的迭代器（Iterator）
+	# 若是用了方括号，那就是用生成器创造的列表（List）；用花括号 {} 生成的就是集合（Set）
+	# 生成器表达式必须在括号内使用，包括函数的参数括号——没理解
+4 装饰器（Decorator）
+	a.关键：函数本身也是对象（即，Python 定义的某个 Class 的一个 Instance）
+	b.因此，函数本身其实可以与其它的数据类型一样，作为其它函数的参数或者返回值
+	c. wrapper() :返回的一个函数的调用，wrapper:返回的这个函数本身
+4.1 装饰器操作符
+（1）Python 提供了一个针对函数的操作符 @，举例：
+def a_decorator(func): # 被 @ 调用的函数，叫做 “装饰器”（Decorator），比如代码中的 a_decorator(func)
+    def wrapper():
+        print('We can do sth. before calling a_func...')
+        func()
+        print('... and we can do sth. after it was called...')
+    return wrapper # wrapper 这个函数本身
+
+@a_decorator #每次a_func()在被调用的时候，因为它之前有一句 @a_decorator，所以它会先被当作参数传递到 a_decorator(func) 这个函数中。
+		 # 而后，真正的执行，是在 a_decorator() 里被完成的。
+def a_func():
+    print("Hi, I'm a_func!")
+    
+a_func()
+（2）装饰器的作用
+@a_decorator		等价于	def a_func():
+def a_func():				...
+    ...				   a_func = a_decorator(a_func)
+
+就是用 a_decorator 的调用结果替换掉原来的函数。
+（3）装饰器的用途
+最常用的场景：用来改变其它函数的行为
+（4）执行顺序
+@uppercase # “自下而上”—— “由里到外” 更为准确。这里是先strong后uppercase
+@strong
+def an_output():
+...
+（5）装饰带有参数函数
+装饰器函数本身这么写：
+def a_decorator(func):
+    def wrapper(*args, **kwargs):
+        return original_result
+    # ...   
+    return wrapper
+# (*args, **kwargs) 非常强大，它可以匹配所有函数传进来的所有参数；
+# 准确地讲，*args接收并处理所有传递进来的位置参数，**kwargs 接收并处理所有传递进来的关键字参数。
 
 Part.3.B.4.regex.ipynb
 
