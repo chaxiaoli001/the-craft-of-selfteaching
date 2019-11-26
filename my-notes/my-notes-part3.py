@@ -327,11 +327,41 @@ ps:
 (7)matching an IP address：/^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$/
 (8)matching a HTML tag：/^<([a-z]+)([^<]+)*(?:>(.*)<\/\1>|\s+\/>)$/
 
-Part.3.B.5.bnf-ebnf-pebnf
-
-
+# Part.3.B.5.bnf-ebnf-pebnf
+1 BNF 以及 EBNF
+1.1 Backus-Naur Form（BNF，巴科斯-诺尔范式）和Extended Backus-Naur Form（EBNF）——语法描述的方法
+	::= 表示定义
+	< > 尖括号里的内容表示必选内容；
+	[ ] 中是可选项；
+	" " 双引号里的内容表示字符；
+	| 竖线两边的是可选内容，相当于or；
+	* 表示零个或者多个
+	+ 表示一个或者多个								       
+举例：
+符合语法的整数（Integer）
+integer ::= [sign] digit +
+sign    ::= "+" | "-"
+digit   ::=  "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9"
+interger 定义是：由 “可选的 sign” 和 “一个或者多个 digit 的集合” 构成 —— 第一行末尾那个 + 的作用和正则表达式里的 + 一样；
+sign 的定义：要么是 + 要么是 -；
+digit 的定义：从 "0" 到 "9" 中的任何一个值
+# ::= 左边逐行列出一个语法构成的所有要素，而后在右边逐行逐一定义，直至全部要素定义完毕
+1.2 glob
+	定义：Global 的缩写，可以理解为 “超级简化版正则表达式” 
+	标识：  *
+		?
+		[abc]
+		[^abc]
 
 Part.3.C.breaking-good-and-bad
+
+
+
+
+
+
+
+
 
 
 Part.3.D.indispensable-illusion
