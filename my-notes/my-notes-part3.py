@@ -372,8 +372,14 @@ digit 的定义：从 "0" 到 "9" 中的任何一个值
 1.3 触类旁通
 更多的工作量，其实在于如何才能在脑子里把整个流程拆解清楚，考虑到各个方面
 
-Part.3.D.indispensable-illusion
-
+# Part.3.D.indispensable-illusion
+1 自学者的社交
+（1）镜像神经元（Mirror Neuron）：感同身受
+	当我们看到另外一个人正在做什么的时候，镜像神经元会尽力给我们足够的刺激，让我们 “体验” 那个人的感受。
+（2）“进取型” 人格：
+他们自然而然地更为乐观，更有耐心，更有承受力，更有战斗力，更能生产更能体验学习与进步的乐趣。
+（3）No matter what you choose, build stuff and be around smart people. 
+无论你选择了什么，都要造出东西来，要与聪明人打交道。
 
 
 
@@ -382,6 +388,7 @@ Part.3.E.to-be-thorough
 
 
 Part.3.F.social-selfteaching
+
 
 
 Part.3.G.the-golden-age-and-google
